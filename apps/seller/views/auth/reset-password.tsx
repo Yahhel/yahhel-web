@@ -1,0 +1,64 @@
+'use client';
+
+import { ArrowLeft, Mail } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { Button } from '@repo/ui/components/ui/button';
+import { Field, FieldGroup, FieldLabel } from '@repo/ui/components/ui/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@repo/ui/components/ui/input-group';
+
+const ResetPassword = () => {
+  const router = useRouter();
+
+  const handleSubmit = () => {
+    router.push('/verify-email');
+  };
+
+  return (
+    <div className="bg-[#FAF8F5] h-dvh w-full flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
+        <div className="w-14 h-14 rounded-2xl bg-[#1D1816] flex items-center justify-center">
+          <Mail className="text-white" size={24} />
+        </div>
+
+        <h1 className="text-[#1D1816] font-bold text-3xl mt-4">
+          Reset password
+        </h1>
+
+        <h4 className="text-[#766860] text-base font-normal mt-1.5">
+          We&apos;ll send you a link to reset it
+        </h4>
+
+        <div className="w-122 h-auto flex flex-col rounded-2xl border border-[#E5E0DC] shadow-[0px_1px_2px_0px_#0000000D] mt-8  px-6 py-12">
+          <FieldGroup className="w-full">
+            <Field className="w-full">
+              <FieldLabel htmlFor="email">Email</FieldLabel>
+              <InputGroup>
+                <InputGroupInput id="email" placeholder="you@example.com" />
+                <InputGroupAddon align="inline-start">
+                  <Mail className="text-[#766860]" />
+                </InputGroupAddon>
+              </InputGroup>
+            </Field>
+
+            <Button type="submit" onClick={handleSubmit} className="mt-1">
+              Send reset link
+            </Button>
+          </FieldGroup>
+        </div>
+
+        <Link href="/signin" className="mt-6 flex gap-x-2 items-center">
+          <ArrowLeft className="text-[#1D1816]" size={14} />
+          <h3 className="text-[#1D1816] text-sm font-medium">Back to log in</h3>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default ResetPassword;
