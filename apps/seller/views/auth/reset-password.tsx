@@ -3,21 +3,41 @@
 import { ArrowLeft, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Controller, useForm } from 'react-hook-form';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@repo/ui/components/ui/button';
-import { Field, FieldGroup, FieldLabel } from '@repo/ui/components/ui/field';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@repo/ui/components/ui/field';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from '@repo/ui/components/ui/input-group';
 
+import {
+  ResetPasswordFormInput,
+  ResetPasswordFormSchema,
+} from './_schema/reset-password.schema';
+
 const ResetPassword = () => {
   const router = useRouter();
 
-  const handleSubmit = () => {
-    router.push('/verify-email');
-  };
+  const form = useForm<ResetPasswordFormInput>({
+    resolver: zodResolver(ResetPasswordFormSchema),
+    defaultValues: {
+      email: '',
+    },
+  });
+
+  function onSubmit(data: ResetPasswordFormInput) {
+    console.log(data);
+    router.push("/verify-email")
+  }
 
   return (
     <div className="bg-[#FAF8F5] h-dvh w-full flex flex-col items-center justify-center">
@@ -35,21 +55,37 @@ const ResetPassword = () => {
         </h4>
 
         <div className="w-122 h-auto flex flex-col rounded-2xl border border-[#E5E0DC] shadow-[0px_1px_2px_0px_#0000000D] mt-8  px-6 py-12">
-          <FieldGroup className="w-full">
-            <Field className="w-full">
-              <FieldLabel htmlFor="email">Email</FieldLabel>
-              <InputGroup>
-                <InputGroupInput id="email" placeholder="you@example.com" />
-                <InputGroupAddon align="inline-start">
-                  <Mail className="text-[#766860]" />
-                </InputGroupAddon>
-              </InputGroup>
-            </Field>
-
-            <Button type="submit" onClick={handleSubmit} className="mt-1">
-              Send reset link
-            </Button>
-          </FieldGroup>
+          <form id="form-reset-password" onSubmit={form.handleSubmit(onSubmit)}>
+            <FieldGroup className="w-full">
+              <Controller
+                name="email"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field className="w-full" data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="email">Email</FieldLabel>
+                    <InputGroup>
+                      <InputGroupInput
+                        {...field}
+                        id="email"
+                        placeholder="you@example.com"
+                        aria-invalid={fieldState.invalid}
+                        autoComplete="off"
+                      />
+                      <InputGroupAddon align="inline-start">
+                        <Mail className="text-[#766860]" />
+                      </InputGroupAddon>
+                    </InputGroup>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Button type="submit" form="form-reset-password">
+                Send reset link
+              </Button>
+            </FieldGroup>
+          </form>
         </div>
 
         <Link href="/signin" className="mt-6 flex gap-x-2 items-center">

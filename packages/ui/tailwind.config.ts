@@ -12,7 +12,11 @@ const config: Config = {
     '../../apps/**/**/*.{ts,tsx}',
   ],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        destructive: "#DC2626"
+      }
+    }
   },
   plugins: [tailwindcssAnimate]
 }

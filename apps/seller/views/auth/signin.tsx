@@ -1,26 +1,44 @@
 'use client';
 
-import { Lock, LogIn, Mail } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { Lock, LogIn, Mail } from 'lucide-react';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from '@repo/ui/components/ui/button';
-import { Field, FieldGroup, FieldLabel } from '@repo/ui/components/ui/field';
-import { Marker, MarkerContent } from '@repo/ui/components/ui/marker';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@repo/ui/components/ui/field';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from '@repo/ui/components/ui/input-group';
+import { Marker, MarkerContent } from '@repo/ui/components/ui/marker';
 
 import { google } from '@/constants/assets.constants';
-import { useRouter } from 'next/navigation';
+
+import { SignInFormSchema, SignInFormInput } from './_schema/signin.schema';
 
 const SignScreen = () => {
-    const router = useRouter();
+  const router = useRouter();
 
-  const handleLogin = () => {
-    router.push("/signup")
+  const form = useForm<SignInFormInput>({
+    resolver: zodResolver(SignInFormSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  function onSubmit(data: SignInFormInput) {
+    console.log(data)
   }
 
   return (
@@ -44,45 +62,77 @@ const SignScreen = () => {
             </h3>
           </div>
 
-          <Marker variant="separator" className='my-4'>
-            <MarkerContent className='text-[#766860]'>OR</MarkerContent>
+          <Marker variant="separator" className="my-4">
+            <MarkerContent className="text-[#766860]">OR</MarkerContent>
           </Marker>
+          <form id="form-signin" onSubmit={form.handleSubmit(onSubmit)}>
+            <FieldGroup className="w-full">
+              <Controller
+                name="email"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field className="w-full" data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="email">Email</FieldLabel>
+                    <InputGroup>
+                      <InputGroupInput
+                        {...field}
+                        id="email"
+                        placeholder="you@example.com"
+                        aria-invalid={fieldState.invalid}
+                        autoComplete="off"
+                      />
+                      <InputGroupAddon align="inline-start">
+                        <Mail className="text-[#766860]" />
+                      </InputGroupAddon>
+                    </InputGroup>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
 
-          <FieldGroup className="w-full">
-            <Field className="w-full">
-              <FieldLabel htmlFor="email">Email</FieldLabel>
-              <InputGroup>
-                <InputGroupInput id="email" placeholder="you@example.com" />
-                <InputGroupAddon align="inline-start">
-                  <Mail className="text-[#766860]" />
-                </InputGroupAddon>
-              </InputGroup>
-            </Field>
+              <Controller
+                name="password"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field className="w-full" data-invalid={fieldState.invalid}>
+                    <FieldLabel
+                      htmlFor="password"
+                      className="flex items-center justify-between w-full"
+                    >
+                      <p>Password </p>
+                      <Link
+                        href={'/reset-password'}
+                        className="text-xs text-[#1D1816] font-normale"
+                      >
+                        Forget Password?
+                      </Link>
+                    </FieldLabel>
 
-            <Field className="w-full">
-              <FieldLabel
-                htmlFor="password"
-                className="flex items-center justify-between w-full"
-              >
-                <p>Password </p>
-                <Link
-                  href={'/reset-password'}
-                  className="text-xs text-[#1D1816] font-normale"
-                >
-                  Forget Password?
-                </Link>
-              </FieldLabel>
+                    <InputGroup>
+                      <InputGroupInput
+                        {...field}
+                        type="password"
+                        id="password"
+                        placeholder="@#$#$%&#$"
+                        aria-invalid={fieldState.invalid}
+                        autoComplete="off"
+                      />
+                      <InputGroupAddon align="inline-start">
+                        <Lock className="text-[#766860]" />
+                      </InputGroupAddon>
+                    </InputGroup>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
 
-              <InputGroup>
-                <InputGroupInput id="password" placeholder="@#$#$%&#$" />
-                <InputGroupAddon align="inline-start">
-                  <Lock className="text-[#766860]" />
-                </InputGroupAddon>
-              </InputGroup>
-            </Field>
-
-            <Button type="submit" onClick={handleLogin}>Login</Button>
-          </FieldGroup>
+              <Button type="submit" form="form-signin" className='mt-2'>Login</Button>
+            </FieldGroup>
+          </form>
         </div>
 
         <Link href="/signup" className="mt-6">

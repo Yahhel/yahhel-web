@@ -15,21 +15,22 @@
     "apps/*"
   ],
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "prettier": "^3.7.4",
     "turbo": "^2.8.16",
-    "typescript": "5.9.2",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*"
+    "typescript": "5.9.2"
   },
-  "packageManager": "pnpm@8.15.6",
+  "packageManager": "pnpm@12.4.1",
   "engines": {
     "node": "20.10.0"
   },
   "dependencies": {
+    "@repo/ui": "workspace:*",
     "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.6",
     "only-allow": "^1.2.2",
-    "zustand": "^5.0.11",
-    "@repo/ui": "workspace:*"
+    "zustand": "^5.0.11"
   }
 }

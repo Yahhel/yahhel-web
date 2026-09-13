@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Mail } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -15,6 +17,8 @@ import { toast } from "sonner"
 
 const VerifyEmail = () => {
   const router = useRouter();
+  const [value, setValue] = useState("");
+  const [error, setError] = useState(false);
 
   const handleLogin = () => {
     router.push('/signup');
@@ -50,18 +54,19 @@ const VerifyEmail = () => {
             <InputOTP
               id="digits-only"
               maxLength={6}
+              value={value} onChange={setValue}
             >
               <InputOTPGroup>
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-                <InputOTPSlot index={4} />
-                <InputOTPSlot index={5} />
+                <InputOTPSlot index={0} aria-invalid={error}/>
+                <InputOTPSlot index={1} aria-invalid={error}/>
+                <InputOTPSlot index={2} aria-invalid={error}/>
+                <InputOTPSlot index={3} aria-invalid={error}/>
+                <InputOTPSlot index={4} aria-invalid={error}/>
+                <InputOTPSlot index={5} aria-invalid={error}/>
               </InputOTPGroup>
             </InputOTP>
 
-            <Button type="submit" onClick={handleLogin} className="mt-2 w-full">
+            <Button type="submit" disabled={value.length < 6} onClick={handleLogin} className="mt-2 w-full">
               Verify
             </Button>
           </FieldGroup>
