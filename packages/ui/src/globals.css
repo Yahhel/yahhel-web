@@ -9,10 +9,41 @@
 @source "../../../components/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
 
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  /* Custom yellow palette */
+  --color-yellow-50: var(--yellow-50);
+  --color-yellow-75: var(--yellow-75);
+  --color-yellow-100: var(--yellow-100);
+  --color-yellow-200: var(--yellow-200);
+  --color-yellow-300: var(--yellow-300);
+  --color-yellow-400: var(--yellow-400);
+  --color-yellow-500: var(--yellow-500);
+  --color-yellow-600: var(--yellow-600);
+  --color-yellow-700: var(--yellow-700);
+  --color-yellow-800: var(--yellow-800);
+  --color-dark-green: var(--dark-green)
+}
+
 :root {
   --scrollbar-thumb: #0177AB;
   --scrollbar-thumb-hover: #015f8a;
   --scrollbar-track: #f1f1f1;
+
+
+  --yellow-50: #fffcf3;
+  --yellow-75: #fffbec;
+  --yellow-100: #fff8db;
+  --yellow-200: #fff4ca;
+  --yellow-300: #fff1bd;
+  --yellow-400: #ffeca7;
+  --yellow-500: #ffe172;
+  --yellow-600: #ffd94f;
+  --yellow-700: #ffd023;
+  --yellow-800: #e6bb20;
+  --dark-green: #00FF00;
+
 }
 
 /* Dark mode ready (optional) */
@@ -78,12 +109,7 @@ body {
 /* =============================
    🎨 CUSTOM FONT FACE
 ============================= */
-@font-face {
-  font-family: 'Suez One';
-  src: url('/fonts/SuezOne-Regular.woff2') format('woff2'),
-       url('/fonts/SuezOne-Regular.woff') format('woff');
-  font-display: swap;
-}
+
 
 .suez-one {
   font-family: 'Suez One', serif;

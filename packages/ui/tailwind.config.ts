@@ -14,7 +14,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        destructive: "#DC2626"
+        destructive: "#DC2626",
+        darkgreen: "#00FF00"
       }
     }
   },

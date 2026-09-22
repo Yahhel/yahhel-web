@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "@repo/ui/globals.css";
+import { Fraunces, Inter } from "next/font/google";
 import { Toaster } from '@repo/ui/components/ui/sonner'
+import "@repo/ui/globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Vaad Seller",
-  description: "Vaad seller app",
+  title: "Pager",
+  description: "Pager",
 };
 
 export default function RootLayout({
@@ -24,10 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      className={`${inter.variable} ${fraunces.variable}`}
+    >
+      <body className="font-sans antialiased">
         {children}
         <Toaster />
       </body>

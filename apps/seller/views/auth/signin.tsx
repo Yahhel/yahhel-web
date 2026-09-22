@@ -47,8 +47,9 @@ const SignScreen = () => {
         <div className="w-14 h-14 rounded-2xl bg-[#1D1816] flex items-center justify-center">
           <LogIn className="text-white" size={24} />
         </div>
-
-        <h1 className="text-[#1D1816] font-bold text-3xl mt-4">Welcome back</h1>
+        <h1 className="font-serif text-[#1D1816] font-bold  text-3xl mt-4">
+        Welcome back
+      </h1>
 
         <h4 className="text-[#766860] text-base font-normal mt-1.5">
           Log in to your account
