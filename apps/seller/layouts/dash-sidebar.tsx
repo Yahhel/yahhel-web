@@ -60,7 +60,7 @@ export function DashboardSidebar() {
     },
     {
       title: 'Products',
-      url: '/customers',
+      url: '/s-products',
       icon: BookOpen,
     },
     {
