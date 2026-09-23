@@ -25,7 +25,7 @@ export default function DashboardLayout({
     >
       <DashboardSidebar />
       <main className="flex flex-col w-full h-screen overflow-hidden bg-[#FAF8F5]">
-        <div className="flex-1 overflow-auto p-6">{children}</div>
+        <div className="flex-1 overflow-auto px-6 pb-6">{children}</div>
       </main>
     </SidebarProvider>
   );
