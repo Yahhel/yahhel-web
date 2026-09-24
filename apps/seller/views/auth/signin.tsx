@@ -39,6 +39,7 @@ const SignScreen = () => {
 
   function onSubmit(data: SignInFormInput) {
     console.log(data)
+    router.replace("/s-products")
   }
 
   return (

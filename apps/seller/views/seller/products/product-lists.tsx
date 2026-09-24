@@ -1,10 +1,8 @@
 'use client';
 
-import React from 'react';
-
-import { ProductCard } from './product-card';
 import type { Product } from '@/utils/dummy';
 
+import { ProductCard } from './product-card';
 
 interface ProductListsProps {
   products: Product[];
@@ -12,10 +10,9 @@ interface ProductListsProps {
   onToggle: (id: string) => void;
 }
 
-
 const ProductLists = ({ products, selected, onToggle }: ProductListsProps) => {
   return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 relative">
       {products.map((p) => (
         <ProductCard
           key={p.id}
