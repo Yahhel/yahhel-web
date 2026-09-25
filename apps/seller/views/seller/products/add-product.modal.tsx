@@ -69,10 +69,8 @@ const AddProduct = ({ open, onClose }: AddProductProps) => {
     'protected',
   );
 
-  const countries = [
-    { label: 'United State', value: 'us' },
-    { label: 'United Kingdom', value: 'uk' },
-    { label: 'Canada', value: 'ca' },
+  const categories = [
+    { label: 'Business', value: 'b' },
   ];
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -157,9 +155,9 @@ const AddProduct = ({ open, onClose }: AddProductProps) => {
                 </InputGroup>
               </Field>
               <Field>
-                <FieldLabel htmlFor="form-country">Country</FieldLabel>
-                <Select items={countries}>
-                  <SelectTrigger id="form-country">
+                <FieldLabel htmlFor="form-category">Category</FieldLabel>
+                <Select>
+                  <SelectTrigger id="form-category">
                     <SelectValue
                       placeholder="Select category"
                       className="placeholder:text-red-900"
@@ -167,9 +165,9 @@ const AddProduct = ({ open, onClose }: AddProductProps) => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      {countries.map((country) => (
-                        <SelectItem key={country.value} value={country.value}>
-                          {country.label}
+                      {categories.map((cat) => (
+                        <SelectItem key={cat.value} value={cat.value}>
+                          {cat.label}
                         </SelectItem>
                       ))}
                     </SelectGroup>
