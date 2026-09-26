@@ -138,7 +138,7 @@ const ProductsScreen = () => {
           </TabsContent>
         ))}
 
-        {selected?.size && (
+        {selected?.size > 0 && (
           <div className="absolute bottom-5 left-1/2 -translate-x-1/12">
             <div className="flex items-center px-4 w-[288px] h-13 bg-[#1D1816] shadow-[0px_1px_2px_0px_#0000000D] rounded-xl gap-x-2.5">
               <p className="text-sm text-[#FAF8F5] font-medium">
