@@ -38,8 +38,7 @@ const SignScreen = () => {
   });
 
   function onSubmit(data: SignInFormInput) {
-    console.log(data)
-    router.replace("/s-products")
+    router.replace("/seller/products")
   }
 
   return (
@@ -117,7 +116,7 @@ const SignScreen = () => {
                         {...field}
                         type="password"
                         id="password"
-                        placeholder="@#$#$%&#$"
+                        placeholder="••••••••"
                         aria-invalid={fieldState.invalid}
                         autoComplete="off"
                       />

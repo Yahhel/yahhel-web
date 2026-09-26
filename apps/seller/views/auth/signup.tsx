@@ -3,6 +3,7 @@
 import { Lock, Mail, UserPlus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,6 +26,7 @@ import { google } from '@/constants/assets.constants';
 import { SignupFormInput, SignupSchema } from './_schema/signup.schema';
 
 const SignUp = () => {
+  const router = useRouter()
   const form = useForm<SignupFormInput>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
@@ -36,6 +38,7 @@ const SignUp = () => {
 
   function onSubmit(data: SignupFormInput) {
     console.log(data);
+    router.replace("/signin")
   }
 
   return (
@@ -54,12 +57,12 @@ const SignUp = () => {
         </h4>
 
         <div className="w-122 h-auto flex flex-col rounded-2xl border border-[#E5E0DC] shadow-[0px_1px_2px_0px_#0000000D] mt-8 px-6 py-8">
-          <div className="flex items-center justify-center gap-x-2 h-12 rounded-[10px] border border-[#E5E0DC] shadow-[0px_1px_2px_0px_#0000000D]">
+          <Button className="flex items-center justify-center gap-x-2 h-12 rounded-[10px] border border-[#E5E0DC] shadow-[0px_1px_2px_0px_#0000000D] bg-transparent hover:bg-transparent">
             <Image alt="google" src={google} />
             <h3 className="text-[#1D1816] text-sm font-medium">
               Continue with Google
             </h3>
-          </div>
+          </Button>
 
           <Marker variant="separator" className="my-4">
             <MarkerContent className="text-[#766860]">OR</MarkerContent>
@@ -108,7 +111,7 @@ const SignUp = () => {
                       <InputGroupInput
                         {...field}
                         id="password"
-                        placeholder="@#$#$%&#$"
+                        placeholder="••••••••"
                         aria-invalid={fieldState.invalid}
                         autoComplete="off"
                       />
@@ -139,7 +142,7 @@ const SignUp = () => {
                       <InputGroupInput
                         {...field}
                         id="cpassword"
-                        placeholder="@#$#$%&#$"
+                        placeholder="••••••••"
                         aria-invalid={fieldState.invalid}
                         autoComplete="off"
                       />

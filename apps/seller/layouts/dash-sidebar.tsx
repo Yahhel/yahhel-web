@@ -45,32 +45,32 @@ export function DashboardSidebar() {
   const studioItems = [
     {
       title: 'Analytics',
-      url: '/analytics',
+      url: '/seller/analytics',
       icon: ChartColumn,
     },
     {
       title: 'Contacts',
-      url: '/contacts',
+      url: '/seller/contacts',
       icon: Users,
     },
     {
       title: 'Wallet',
-      url: '/vendors',
+      url: '/seller/vendors',
       icon: Wallet,
     },
     {
       title: 'Products',
-      url: '/s-products',
+      url: '/seller/products',
       icon: BookOpen,
     },
     {
       title: 'Affiliate',
-      url: '/riders',
+      url: '/seller/affilate',
       icon: Link2,
     },
     {
       title: 'Reviews',
-      url: '/riders',
+      url: '/seller/reviews',
       icon: Star,
     },
   ];
@@ -78,22 +78,22 @@ export function DashboardSidebar() {
   const creatorItems = [
     {
       title: 'Storefront Preview',
-      url: '/home',
+      url: '/seller/storefont',
       icon: Eye,
     },
     {
       title: 'My Profile',
-      url: '/bookings',
+      url: '/seller/profile',
       icon: CircleUser,
     },
     {
       title: 'Notifications',
-      url: '/vendors',
+      url: '/seller/notifications',
       icon: Bell,
     },
     {
       title: 'Collaboration',
-      url: '/customers',
+      url: '/seller/collaboration',
       icon: Users,
     },
   ];
@@ -101,7 +101,7 @@ export function DashboardSidebar() {
   const publicItems = [
     {
       title: 'Storefront',
-      url: '/home',
+      url: '/seller/storefront',
       icon: Store,
     },
   ];
