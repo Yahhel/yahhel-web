@@ -12,6 +12,13 @@ export const formatDate = (iso: string) =>
     year: 'numeric',
   });
 
+export function formatCompactNumber(value: number, locale = 'en-NG'): string {
+  return new Intl.NumberFormat(locale, {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  }).format(value);
+}
+
 export const COVER_COLORS = [
   { name: 'Gold', value: '#C8893A' },
   { name: 'Green', value: '#1A6B52' },
