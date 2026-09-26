@@ -4,7 +4,7 @@ import * as React from "react"
 import { Eye, Lock } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@repo/ui/lib/utils"
-import { getCoverGradient } from "@/utils/utils"
+import { getCoverGradient } from "@/lib/utils"
 
 type ProductPreviewProps = {
   cover: File | null

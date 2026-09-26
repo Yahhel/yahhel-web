@@ -1,6 +1,6 @@
 'use client';
 
-import type { Product } from '@/utils/dummy';
+import type { Product } from '@/lib/dummy';
 
 import { ProductCard } from './product-card';
 

@@ -51,7 +51,7 @@ import {
   DELIVERY_OPTIONS,
   STATUS_OPTIONS,
   getCoverGradient,
-} from '@/utils/utils';
+} from '@/lib/utils';
 
 import { ProductFormValues, productSchema } from './_schema/add-product.schema';
 import { FileUpload } from './file-upload';

@@ -13,14 +13,16 @@ import {
   TabsTrigger,
 } from '@repo/ui/components/ui/tabs';
 
-import { products } from '@/utils/dummy';
+import { products } from '@/lib/dummy';
 
 import AddProduct from './add-product.modal';
 import ProductLists from './product-lists';
+import { useRouter } from 'next/navigation';
 
 type Tab = 'all' | 'live' | 'retired';
 
 const ProductsScreen = () => {
+  const router = useRouter()
   const [tab, setTab] = React.useState<Tab>('all');
   const [openAddProduct, setOpenAddProduct] = React.useState(false);
   const [selected, setSelected] = React.useState<Set<string>>(new Set());
@@ -70,7 +72,7 @@ const ProductsScreen = () => {
             </p>
           </div>
           <div className="space-x-2">
-            <Button className="h-10 border-[0.8px] border-[#E5E0DC99]/60 bg-white hover:bg-white text-sm font-medium text-[#1D1816]">
+            <Button onClick={()=>router.push("/seller/storefront-preview")} className="h-10 border-[0.8px] border-[#E5E0DC99]/60 bg-white hover:bg-white text-sm font-medium text-[#1D1816]">
               <ExternalLink />
               Storefront preview
             </Button>

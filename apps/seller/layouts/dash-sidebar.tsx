@@ -124,7 +124,7 @@ export function DashboardSidebar() {
       <SidebarHeader className="py-4 mt-2 flex flex-col justify-center">
         <div className="flex items-center gap-x-2 pl-4">
           <div className="flex items-center justify-center h-9 w-9 rounded-xl bg-[#1D1816]">
-            <Image alt="google" src={logo} />
+            <Image alt="logo" src={logo} />
           </div>
           <div className="mt-1">
             <h2 className="font-serif font-semibold text-lg text-[#1D1816] leading-5">

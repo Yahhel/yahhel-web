@@ -25,7 +25,7 @@ import {
 } from '@repo/ui/components/ui/dropdown-menu';
 import { cn } from '@repo/ui/lib/utils';
 
-import { conversion, formatDate, naira } from '@/utils/utils';
+import { conversion, formatDate, naira } from '@/lib/utils';
 
 import ProductStat from './product-stat';
 
