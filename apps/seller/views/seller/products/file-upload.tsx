@@ -81,7 +81,7 @@ export function FileUpload({
         )}
       >
         {previewUrl ? (
-          <Image src={previewUrl} alt="" className="h-full w-full object-cover" />
+          <Image src={previewUrl} alt="" height={100} width={100} className="h-full w-full object-cover" />
         ) : value ? (
           <>
             <Icon className="size-5 text-[#6B5B4E]" />

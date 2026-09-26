@@ -9,7 +9,9 @@ import {
   Upload,
 } from 'lucide-react';
 import Image from 'next/image';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@repo/ui/components/ui/button';
 import {
   Dialog,
@@ -22,6 +24,7 @@ import {
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from '@repo/ui/components/ui/field';
@@ -50,6 +53,7 @@ import {
   getCoverGradient,
 } from '@/utils/utils';
 
+import { ProductFormValues, productSchema } from './_schema/add-product.schema';
 import { FileUpload } from './file-upload';
 import { ProductPreview } from './product-preview';
 
@@ -59,6 +63,18 @@ interface AddProductProps {
 }
 
 const AddProduct = ({ open, onClose }: AddProductProps) => {
+  const form = useForm<ProductFormValues>({
+    resolver: zodResolver(productSchema),
+    defaultValues: {
+      title: '',
+      subtitle: '',
+      category: '',
+      chapters: '',
+      price: '',
+      salesCopy: '',
+      urlSlug: '',
+    },
+  });
   const [bookFile, setBookFile] = React.useState<File | null>(null);
   const [cover, setCover] = React.useState<File | null>(null);
   const [status, setStatus] = React.useState<'draft' | 'published'>('draft');
@@ -69,12 +85,20 @@ const AddProduct = ({ open, onClose }: AddProductProps) => {
     'protected',
   );
 
-  const categories = [
-    { label: 'Business', value: 'b' },
-  ];
+  const categories = [{ label: 'Business', value: 'b' }];
+
+  const [title, subtitle, category, price] = useWatch({
+    control: form.control,
+    name: ['title', 'subtitle', 'category', 'price'],
+  });
+
+  const categoryLabel = categories.find((c) => c.value === category)?.label;
+
+  const onSubmit = (values: ProductFormValues) => {};
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <form>
+      <form id="form-add-product" onSubmit={form.handleSubmit(onSubmit)}>
         <DialogContent className="sm:max-w-160 h-181 bg-white p-0 rounded-[20px] border-0 shadow-none">
           <DialogHeader className="h-17.25 border-b-[0.8px] border-[#E5E0DC99] px-6">
             <div className="flex flex-row items-center h-full gap-x-2.5">
@@ -96,94 +120,171 @@ const AddProduct = ({ open, onClose }: AddProductProps) => {
               cover={cover}
               color={coverColor}
               protectedMode={delivery === 'protected'}
+              title={title || undefined}
+              subtitle={subtitle || undefined}
+              category={categoryLabel}
+              price={price}
             />
-            <Field>
-              <FieldLabel htmlFor="name-1">
-                Title<span className="text-destructive">*</span>
-              </FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  type="text"
-                  id="password"
-                  placeholder="The Founder's Playbook"
-                />
-              </InputGroup>
-            </Field>
+            <Controller
+              name="title"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="title">
+                    Title<span className="text-destructive">*</span>
+                  </FieldLabel>
+                  <InputGroup className="bg-[#FAF8F5] has-[[data-slot=input-group-control]:focus-visible]:border has-[[data-slot=input-group-control]:focus-visible]:ring-[1px] has-[[data-slot=input-group-control]:focus-visible]:ring-[#BD7828] has-[[data-slot=input-group-control]:focus-visible]:shadow-[0px_0px_4px_0px_#BD78285C]">
+                    <InputGroupInput
+                      {...field}
+                      type="text"
+                      id="title"
+                      placeholder="The Founder's Playbook"
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                    />
+                  </InputGroup>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+            <Controller
+              name="subtitle"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="subtitle">Subtitle</FieldLabel>
+                  <InputGroup className="bg-[#FAF8F5] has-[[data-slot=input-group-control]:focus-visible]:border has-[[data-slot=input-group-control]:focus-visible]:ring-[1px] has-[[data-slot=input-group-control]:focus-visible]:ring-[#BD7828] has-[[data-slot=input-group-control]:focus-visible]:shadow-[0px_0px_4px_0px_#BD78285C]">
+                    <InputGroupInput
+                      {...field}
+                      type="text"
+                      id="subtitle"
+                      placeholder="A field guide to building in Lagos"
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                    />
+                  </InputGroup>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
 
-            <Field>
-              <FieldLabel htmlFor="name-1">Subtitle</FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  type="text"
-                  id="password"
-                  placeholder="A field guide to building in Lagos"
-                />
-              </InputGroup>
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="input-group-url">Website URL</FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  id="input-group-url"
-                  placeholder="example.com"
-                />
-                <InputGroupAddon>
-                  <InputGroupText className="text-[#766860]">
-                    /store/
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-            </Field>
+            <Controller
+              name="urlSlug"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="urlSlug">Website URL</FieldLabel>
+                  <InputGroup className="bg-[#FAF8F5] has-[[data-slot=input-group-control]:focus-visible]:border has-[[data-slot=input-group-control]:focus-visible]:ring-[1px] has-[[data-slot=input-group-control]:focus-visible]:ring-[#BD7828] has-[[data-slot=input-group-control]:focus-visible]:shadow-[0px_0px_4px_0px_#BD78285C]">
+                    <InputGroupInput
+                      {...field}
+                      type="text"
+                      id="urlSlug"
+                      placeholder="example.com"
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                    />
+                    <InputGroupAddon>
+                      <InputGroupText className="text-[#766860]">
+                        /store/
+                      </InputGroupText>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
 
             <div className="grid grid-cols-3 gap-4">
-              <Field>
-                <FieldLabel htmlFor="name-1">
-                  Price (₦)<span className="text-destructive">*</span>
-                </FieldLabel>
-                <InputGroup>
-                  <InputGroupInput
-                    type="text"
-                    id="password"
-                    placeholder="7500"
-                  />
-                  <InputGroupAddon>
-                    <InputGroupText className="text-[#766860]">
-                      ₦
-                    </InputGroupText>
-                  </InputGroupAddon>
-                </InputGroup>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="form-category">Category</FieldLabel>
-                <Select>
-                  <SelectTrigger id="form-category">
-                    <SelectValue
-                      placeholder="Select category"
-                      className="placeholder:text-red-900"
-                    />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {categories.map((cat) => (
-                        <SelectItem key={cat.value} value={cat.value}>
-                          {cat.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="name-1">Chapters</FieldLabel>
-                <InputGroup>
-                  <InputGroupInput
-                    type="number"
-                    id="chapters"
-                    placeholder="1"
-                  />
-                </InputGroup>
-              </Field>
+              <Controller
+                name="price"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="price">
+                      Price (₦)<span className="text-destructive">*</span>
+                    </FieldLabel>
+                    <InputGroup className="bg-[#FAF8F5] has-[[data-slot=input-group-control]:focus-visible]:border has-[[data-slot=input-group-control]:focus-visible]:ring-[1px] has-[[data-slot=input-group-control]:focus-visible]:ring-[#BD7828] has-[[data-slot=input-group-control]:focus-visible]:shadow-[0px_0px_4px_0px_#BD78285C]">
+                      <InputGroupInput
+                        {...field}
+                        type="text"
+                        id="price"
+                        placeholder="7500"
+                        aria-invalid={fieldState.invalid}
+                        autoComplete="off"
+                      />
+                      <InputGroupAddon>
+                        <InputGroupText className="text-[#766860]">
+                          ₦
+                        </InputGroupText>
+                      </InputGroupAddon>
+                    </InputGroup>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="category"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="form-category">Category</FieldLabel>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger
+                        id="form-category"
+                        onBlur={field.onBlur}
+                        aria-invalid={fieldState.invalid}
+                        className="resize-none rounded-xl border-[0.8px] border-[#E5E0DC99] bg-[#FAF8F5] text-sm placeholder:text-muted-foreground"
+                      >
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {categories.map((cat) => (
+                            <SelectItem key={cat.value} value={cat.value}>
+                              {cat.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="chapters"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="chapters">Chapters</FieldLabel>
+                    <InputGroup className="bg-[#FAF8F5] has-[[data-slot=input-group-control]:focus-visible]:border has-[[data-slot=input-group-control]:focus-visible]:ring-[1px] has-[[data-slot=input-group-control]:focus-visible]:ring-[#BD7828] has-[[data-slot=input-group-control]:focus-visible]:shadow-[0px_0px_4px_0px_#BD78285C]">
+                      <InputGroupInput
+                        {...field}
+                        type="number"
+                        id="chapters"
+                        placeholder="1"
+                        aria-invalid={fieldState.invalid}
+                        autoComplete="off"
+                      />
+                    </InputGroup>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
             </div>
 
             <Field>
@@ -252,19 +353,35 @@ const AddProduct = ({ open, onClose }: AddProductProps) => {
               </div>
             </Field>
 
-            <Field>
-              <FieldLabel htmlFor="sales-copy" className="gap-1.5 text-[#766860] text-xs">
-                <FileText className="size-3.5" /> Sales copy
-              </FieldLabel>
-              <Textarea
-                id="sales-copy"
-                placeholder="Tell readers what they'll learn and why it matters. One paragraph per line."
-                className="min-h-30.25 resize-none"
-              />
-              <FieldDescription className="text-[10px] text-[#766860]">
-                Shown on the product page. Separate paragraphs with line breaks.
-              </FieldDescription>
-            </Field>
+            <Controller
+              name="salesCopy"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel
+                    htmlFor="sales-copy"
+                    className="gap-1.5 text-[#766860] text-xs"
+                  >
+                    <FileText className="size-3.5" /> Sales copy
+                  </FieldLabel>
+                  <Textarea
+                    {...field}
+                    id="sales-copy"
+                    placeholder="Tell readers what they'll learn and why it matters. One paragraph per line."
+                    className="min-h-30.25 resize-none"
+                    aria-invalid={fieldState.invalid}
+                    autoComplete="off"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                  <FieldDescription className="text-[10px] text-[#766860]">
+                    Shown on the product page. Separate paragraphs with line
+                    breaks.
+                  </FieldDescription>
+                </Field>
+              )}
+            />
 
             <Field className="mt-3">
               <FieldLabel className="text-[#766860] text-xs font-medium">
@@ -349,7 +466,11 @@ const AddProduct = ({ open, onClose }: AddProductProps) => {
                 >
                   Cancel
                 </Button>
-                <Button className="h-10 rounded-xl bg-[#1D1816] text-sm font-medium text-[#FAF8F5]">
+                <Button
+                  className="h-10 rounded-xl bg-[#1D1816] text-sm font-medium text-[#FAF8F5]"
+                  type="submit"
+                  form="form-add-product"
+                >
                   <Plus /> Publish Product
                 </Button>
               </div>

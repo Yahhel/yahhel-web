@@ -56,6 +56,8 @@ export function ProductPreview({
               <Image
                 src={coverUrl}
                 alt=""
+                width={100}
+                height={100}          
                 className="absolute inset-0 size-full object-cover"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-black/20" />
