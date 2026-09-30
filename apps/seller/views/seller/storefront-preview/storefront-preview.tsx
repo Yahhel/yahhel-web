@@ -177,7 +177,7 @@ export default function StorefrontPreviewScreen() {
         <div className="mx-auto max-w-5xl flex items-center justify-between py-5 text-sm">
           <div className="flex items-center gap-x-2">
             <div className="flex items-center justify-center h-7 w-7 rounded-xl bg-[#1D1816] p-1.5">
-              <Image alt="logo" src={logo} style={{ filter: "invert(48%) sepia(60%) saturate(500%) hue-rotate(0deg)" }} />
+              <Image alt="logo" src={logo} />
             </div>
             <h2 className="font-serif font-semibold text-sm text-[#1D1816] ">
               Pager Sell

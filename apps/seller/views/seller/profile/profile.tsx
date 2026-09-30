@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { logo } from '@/constants/assets.constants';
 import { getCreatorStats } from '@/lib/creator';
@@ -30,6 +31,7 @@ const SOCIALS = [
 ];
 
 const ProfileScreen = () => {
+  const router = useRouter()
   const stats = getCreatorStats();
   const liveProducts = products.filter((p) => p.status === 'live');
 
@@ -71,7 +73,7 @@ const ProfileScreen = () => {
             >
               <Eye className="size-4" /> Storefront preview
             </Link>
-            <Button className="rounded-xl bg-[#1D1816] py-2 text-xs font-medium text-[#FAF8F5] h-8">
+            <Button onClick={() => router.push("/seller/profile/edit")} className="rounded-xl bg-[#1D1816] py-2 text-xs font-medium text-[#FAF8F5] h-8">
               Edit profile
             </Button>
           </div>

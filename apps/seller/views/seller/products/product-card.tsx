@@ -9,7 +9,6 @@ import {
   Lock,
   Pencil,
   ShoppingBag,
-  Trash,
   Trash2,
 } from 'lucide-react';
 
@@ -19,7 +18,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@repo/ui/components/ui/dropdown-menu';
@@ -159,7 +157,7 @@ export function ProductCard({
           </div>
         </div>
 
-        <div className="grid grid-cols-3 border-y border-[#eeeae5] py-4">
+        <div className="grid grid-cols-3 border-y-[0.8px] border-[#eeeae5] py-4">
           <ProductStat
             icon={<Eye size={14} />}
             value={p.views.toLocaleString('en-NG')}
