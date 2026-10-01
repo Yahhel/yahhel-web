@@ -7,18 +7,19 @@ import {
   ArrowLeft,
   Bell,
   CheckCheck,
+  Funnel,
   Link2,
   ShoppingBag,
 } from 'lucide-react';
 import Link from 'next/link';
 
+import { Button } from '@repo/ui/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@repo/ui/components/ui/tabs';
 
 import { FILTER_TABS } from '@/lib/notification-style';
 import { NOTIFICATIONS } from '@/lib/notifications';
 
 import { NotificationItem } from './notification-item';
-import { Button } from '@repo/ui/components/ui/button';
 
 export default function NotificationsScreen() {
   const [filter, setFilter] =
@@ -48,7 +49,7 @@ export default function NotificationsScreen() {
             <Link
               href="/seller"
               className="flex items-center gap-1.5 text-sm text-[#766860] hover:text-[#1F1A17]"
-              >
+            >
               <ArrowLeft className="size-4" /> Dashboard
             </Link>
             <span className="text-[#76686066]">/</span>
@@ -59,7 +60,10 @@ export default function NotificationsScreen() {
               </span>
             </span>
           </div>
-          <Button variant="ghost" className="flex items-center gap-1.5 text-sm text-[#766860] hover:text-[#1D1816]">
+          <Button
+            variant="ghost"
+            className="flex items-center gap-1.5 text-sm text-[#766860] hover:text-[#1D1816]"
+          >
             <CheckCheck className="size-4" /> Mark all read
           </Button>
         </div>
@@ -116,17 +120,20 @@ export default function NotificationsScreen() {
           onValueChange={(v) => setFilter(v as typeof filter)}
           className="mt-6"
         >
-          <TabsList className="flex-wrap justify-start gap-2 bg-transparent p-0">
-            {FILTER_TABS.map((tab) => (
-              <TabsTrigger
-                key={tab.value}
-                value={tab.value}
-                className="rounded-xl px-4 py-1.5 text-xs  text-[#766860]"
-              >
-                {tab.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="flex items-center gap-2">
+            <Funnel className='size-4 text-[#766860]' />
+            <TabsList className="flex-wrap justify-start gap-2 bg-transparent p-0">
+              {FILTER_TABS.map((tab) => (
+                <TabsTrigger
+                  key={tab.value}
+                  value={tab.value}
+                  className="rounded-xl px-4 py-1.5 text-xs  text-[#766860]"
+                >
+                  {tab.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
         </Tabs>
         <div className="mt-6 space-y-4">
           {visible.map((notification) => (
