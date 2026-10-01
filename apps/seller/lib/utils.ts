@@ -1,6 +1,6 @@
 import { Download, Lock } from 'lucide-react';
 
-export const naira = (n: number) => `₦${n.toLocaleString('en-NG')}`;
+export const formatNaira = (n: number) => `₦${n.toLocaleString('en-NG')}`;
 
 export const conversion = (buyers: number, views: number) =>
   views === 0 ? '0.0%' : `${((buyers / views) * 100).toFixed(1)}%`;

@@ -23,7 +23,7 @@ import {
 } from '@repo/ui/components/ui/dropdown-menu';
 import { cn } from '@repo/ui/lib/utils';
 
-import { conversion, formatDate, naira } from '@/lib/utils';
+import { conversion, formatDate, formatNaira } from '@/lib/utils';
 
 import ProductStat from './product-stat';
 
@@ -151,7 +151,7 @@ export function ProductCard({
                 {p.status === 'live' ? 'Live' : 'Retired'}
               </span>
               <span className="text-xs text-[#1D1816] font-semibold">
-                {naira(p.price)}
+                {formatNaira(p.price)}
               </span>
             </div>
           </div>
@@ -181,7 +181,7 @@ export function ProductCard({
               Revenue · Conv
             </div>
             <div className="text-sm text-[#1D1816] font-semibold">
-              {naira(p.revenue)} · {conversion(p.buyers, p.views)}
+              {formatNaira(p.revenue)} · {conversion(p.buyers, p.views)}
             </div>
           </div>
           <div className="text-right text-sm leading-normal text-[#7a736c]">

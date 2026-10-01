@@ -55,7 +55,7 @@ export function DashboardSidebar() {
     },
     {
       title: 'Wallet',
-      url: '/seller/vendors',
+      url: '/seller/wallet',
       icon: Wallet,
     },
     {
