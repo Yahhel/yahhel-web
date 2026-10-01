@@ -78,7 +78,7 @@ export function DashboardSidebar() {
   const creatorItems = [
     {
       title: 'Storefront Preview',
-      url: '/seller/storefont',
+      url: '/seller/storefront-preview',
       icon: Eye,
     },
     {
