@@ -17,7 +17,7 @@ export default function WalletScreen() {
           Ledger-based · balance = sum of all entries · payouts to Nigerian bank
         </p>
 
-        <div className="mt-6 flex items-center justify-between rounded-2xl border-[0.8px] border-[#E5E0DC99] bg-[linear-gradient(135deg,#FFFFFF_0%,rgba(253,252,250,0.65)_50%,rgba(251,248,245,0.475)_75%,rgba(247,240,233,0.3)_100%)] p-6 shadow-[0px_8px_24px_-12px_#00000014,0px_1px_3px_0px_#0000000A] ">
+        <div className="mt-6 flex items-center justify-between rounded-2xl border-[0.8px] border-[#E5E0DC99] bg-[linear-gradient(135deg,#FFFFFF_0%,rgba(253,252,250,0.65)_50%,rgba(251,248,245,0.475)_75%,rgba(247,240,233,0.3)_100%)] p-6 shadow-[0px_8px_24px_-12px_#00000014,0px_1px_3px_0px_#0000000A]">
           <div>
             <p className="text-xs uppercase tracking-wider text-[#766860]">Available balance</p>
             <p className="mt-1 font-serif text-4xl font-semibold text-[#1D1816]">

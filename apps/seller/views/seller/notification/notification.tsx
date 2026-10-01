@@ -47,7 +47,7 @@ export default function NotificationsScreen() {
         <div className="max-w-5xl mx-auto flex items-center justify-between py-3 h-16">
           <div className="flex items-center gap-2 text-sm">
             <Link
-              href="/seller"
+              href="/seller/analytics"
               className="flex items-center gap-1.5 text-sm text-[#766860] hover:text-[#1F1A17]"
             >
               <ArrowLeft className="size-4" /> Dashboard
