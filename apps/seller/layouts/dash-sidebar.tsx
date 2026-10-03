@@ -65,7 +65,7 @@ export function DashboardSidebar() {
     },
     {
       title: 'Affiliate',
-      url: '/seller/affilate',
+      url: '/seller/affiliate',
       icon: Link2,
     },
     {

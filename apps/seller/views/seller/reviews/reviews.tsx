@@ -87,7 +87,7 @@ export default function ReviewsManagerScreen() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search reviews..."
-            className="h-10 flex-1 rounded-lg border-[0.8px] border-[#E5E0DC99] bg-white px-4 text-sm placeholder:text-[#9CA3AF] focus-visible:outline-none focus-visible:ring-[0.8px] focus-visible:ring-[#BD7828]"
+            className="h-10 flex-1 rounded-xl border-[0.8px] border-[#E5E0DC99] bg-white px-4 text-sm placeholder:text-[#9CA3AF] focus-visible:outline-none focus-visible:ring-[0.8px] focus-visible:ring-[#BD7828]"
           />
         </div>
 
