@@ -94,7 +94,9 @@ const AddProduct = ({ open, onClose }: AddProductProps) => {
 
   const categoryLabel = categories.find((c) => c.value === category)?.label;
 
-  const onSubmit = (values: ProductFormValues) => {};
+  const onSubmit = (values: ProductFormValues) => {
+    console.log(values)
+  };
 
   return (
     <Dialog open={open} onOpenChange={onClose}>

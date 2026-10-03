@@ -1,70 +1,101 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { Mail, MessageSquare } from "lucide-react"
-import { Sheet, SheetContent } from "@repo/ui/components/ui/sheet"
-import { formatNaira } from "@/lib/utils"
-import { TIMELINE_DOT_COLORS } from "@/lib/timeline-styles"
-import type { Contact, TimelineEvent } from "@/lib/contacts"
+import * as React from 'react';
+
+import { Mail, MessageSquare } from 'lucide-react';
+
+import { Button } from '@repo/ui/components/ui/button';
+import { Sheet, SheetContent } from '@repo/ui/components/ui/sheet';
+import { Textarea } from '@repo/ui/components/ui/textarea';
+
+import type { Contact } from '@/lib/contacts';
+import { TIMELINE_DOT_COLORS } from '@/lib/timeline-styles';
+import { formatNaira } from '@/lib/utils';
 
 function initialsOf(name: string) {
-  return name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()
+  return name
+    .split(' ')
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
 }
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })
+  return new Date(iso).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
 }
 
 type ContactDetailSheetProps = {
-    contact: Contact | null
-    open: boolean
-    onOpenChange: (open: boolean) => void
-  }
+  contact: Contact | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+};
 
-export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetailSheetProps) {
-  const [message, setMessage] = React.useState("")
+export function ContactDetailSheet({
+  contact,
+  open,
+  onOpenChange,
+}: ContactDetailSheetProps) {
+  const [message, setMessage] = React.useState('');
 
-  React.useEffect(() => {
-    if (contact) setMessage(`Hi ${contact.name.split(" ")[0]}, thanks for reading...`)
-  }, [contact])
-
-  if (!contact) return null
+  if (!contact) return null;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="w-full gap-0 p-0 sm:max-w-104.75 bg-[#FFFFFF]">
         <div className="flex items-start gap-3 border-b border-[#F0EBE4] p-6">
-          <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#B0693A] text-sm font-semibold text-white">
+          <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,#F59E0B_0%,#B45309_100%)] text-base font-semibold text-white">
             {initialsOf(contact.name)}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="font-serif text-lg font-semibold text-[#1F1A17]">{contact.name}</p>
-            <p className="text-sm text-[#6B5B4E]">{contact.email}</p>
+            <p className="font-serif text-lg font-semibold text-[#1D1816]">
+              {contact.name}
+            </p>
+            <p className="text-xs text-[#766860]">{contact.email}</p>
             {contact.city && (
-              <p className="mt-1 flex items-center gap-1 text-xs text-[#8A7B6E]">
-                <span className="size-1.5 rounded-full bg-[#1A6B52]" /> {contact.city} · mobile
+              <p className="mt-1 flex items-center gap-1 text-xs text-[#766860]">
+                <span className="size-1.5 rounded-full bg-[#29654F]" />{' '}
+                {contact.city} · mobile
               </p>
             )}
           </div>
         </div>
 
-        <div className="grid grid-cols-3 divide-x divide-[#F0EBE4] border-b border-[#F0EBE4]">
+        <div className="grid grid-cols-3 divide-x divide-[#E5E0DC99]">
           <div className="px-4 py-4 text-center">
-            <p className="font-serif text-xl font-semibold text-[#1F1A17]">{contact.purchases}</p>
-            <p className="mt-0.5 text-[10px] uppercase tracking-wide text-[#8A7B6E]">Purchases</p>
+            <p className="font-serif text-xl font-semibold text-[#1D1816]">
+              {contact.purchases}
+            </p>
+            <p className="mt-0.5 text-[10px] uppercase tracking-wide text-[#766860]">
+              Purchases
+            </p>
           </div>
           <div className="px-4 py-4 text-center">
-            <p className="font-serif text-xl font-semibold text-[#1F1A17]">{formatNaira(contact.ltv)}</p>
-            <p className="mt-0.5 text-[10px] uppercase tracking-wide text-[#8A7B6E]">LTV</p>
+            <p className="font-serif text-xl font-semibold text-[#1D1816]">
+              {formatNaira(contact.ltv)}
+            </p>
+            <p className="mt-0.5 text-[10px] uppercase tracking-wide text-[#766860]">
+              LTV
+            </p>
           </div>
           <div className="px-4 py-4 text-center">
-            <p className="font-serif text-xl font-semibold text-[#1F1A17]">{contact.sinceDays}</p>
-            <p className="mt-0.5 text-[10px] uppercase tracking-wide text-[#8A7B6E]">Since</p>
+            <p className="font-serif text-xl font-semibold text-[#1D1816]">
+              {contact.sinceDays}
+            </p>
+            <p className="mt-0.5 text-[10px] uppercase tracking-wide text-[#766860]">
+              Since
+            </p>
           </div>
         </div>
 
         <div className="flex-1 overflow-y-auto p-6">
-          <p className="text-xs font-medium uppercase tracking-wide text-[#8A7B6E]">Timeline</p>
+          <p className="font-serif text-xs font-semibold uppercase tracking-wide text-[#766860]">
+            Timeline
+          </p>
           <div className="mt-4 space-y-4">
             {contact.timeline.map((event) => (
               <div key={event.id} className="flex items-start gap-2.5">
@@ -73,31 +104,35 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
                   style={{ backgroundColor: TIMELINE_DOT_COLORS[event.type] }}
                 />
                 <div>
-                  <p className="text-sm text-[#1F1A17]">{event.label}</p>
-                  <p className="text-xs text-[#8A7B6E]">{formatDate(event.date)}</p>
+                  <p className="text-xs text-[#1D1816]">{event.label}</p>
+                  <p className="text-[10px] text-[#766860]">
+                    {formatDate(event.date)}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="border-t border-[#F0EBE4] p-4">
+        <div className="border-t-[0.8px] border-[#E5E0DC99] p-4">
           <div className="flex gap-2">
-            <button className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#1F1A17] py-2.5 text-sm font-medium text-white">
+            <Button className="h-9 flex flex-1 gap-1.5">
               <Mail className="size-3.5" /> Email
-            </button>
-            <button className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-[#E5E0DC] bg-white py-2.5 text-sm font-medium text-[#1F1A17]">
+            </Button>
+            <Button variant="ghost"  className="h-9 flex flex-1 gap-1.5 bg-[#F3F0ED] py-2.5 text-xs font-medium text-[#1D1816]">
               <MessageSquare className="size-3.5" /> SMS
-            </button>
+            </Button>
           </div>
-          <textarea
+          <Textarea
             value={message}
+            placeholder="Hi Ngozi, thanks for reading..."
             onChange={(e) => setMessage(e.target.value)}
             rows={2}
-            className="mt-3 w-full resize-none rounded-lg border border-[#E5E0DC] bg-[#FAF8F5] px-3 py-2.5 text-sm text-[#1F1A17] placeholder:text-[#8A7B6E] focus-visible:border-[#BD7828] focus-visible:outline-none focus-visible:ring-[1px] focus-visible:ring-[#BD7828]"
+            className="mt-3 resize-none text-xs bg-[#FAF8F5] placeholder:text-[#9CA3AF]"
+            autoComplete="off"
           />
         </div>
       </SheetContent>
     </Sheet>
-  )
+  );
 }
