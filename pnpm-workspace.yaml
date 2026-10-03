@@ -7,6 +7,7 @@ catalog:
   zod: ^4.6.2
   cookies-next: ^6.1.1
   '@hookform/resolvers': ^5.9.1
+  recharts": ^3.10.1
 
 allowBuilds:
   sharp: false

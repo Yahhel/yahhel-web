@@ -1,10 +1,7 @@
-import React from 'react'
+import AnalyticsScreen from '@/views/seller/analytics/analytics';
 
 const Analytics = () => {
-  return (
-    
-    <div>Analytics</div>
-  )
-}
+  return <AnalyticsScreen />;
+};
 
-export default Analytics
+export default Analytics;
