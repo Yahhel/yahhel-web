@@ -46,7 +46,7 @@ export function ContactDetailSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="w-full gap-0 p-0 sm:max-w-104.75 bg-[#FFFFFF]">
+      <SheetContent className="w-full gap-0 p-0 sm:max-w-104.75 bg-[#FFFFFF] border-0">
         <div className="flex items-start gap-3 border-b border-[#F0EBE4] p-6">
           <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,#F59E0B_0%,#B45309_100%)] text-base font-semibold text-white">
             {initialsOf(contact.name)}
@@ -97,12 +97,17 @@ export function ContactDetailSheet({
             Timeline
           </p>
           <div className="mt-4 space-y-4">
-            {contact.timeline.map((event) => (
+            {contact.timeline.map((event, index) => (
               <div key={event.id} className="flex items-start gap-2.5">
-                <span
-                  className="mt-1.5 size-2 shrink-0 rounded-full"
-                  style={{ backgroundColor: TIMELINE_DOT_COLORS[event.type] }}
-                />
+                <div className="relative flex flex-col items-center">
+                  <span
+                    className="z-10 mt-1.5 size-2 shrink-0 rounded-full"
+                    style={{ backgroundColor: TIMELINE_DOT_COLORS[event.type] }}
+                  />
+                  {index !== contact.timeline.length - 1 && (
+                    <span className="absolute top-4 h-full w-px bg-[#E5E0DC]" />
+                  )}
+                </div>
                 <div>
                   <p className="text-xs text-[#1D1816]">{event.label}</p>
                   <p className="text-[10px] text-[#766860]">
@@ -119,7 +124,10 @@ export function ContactDetailSheet({
             <Button className="h-9 flex flex-1 gap-1.5">
               <Mail className="size-3.5" /> Email
             </Button>
-            <Button variant="ghost"  className="h-9 flex flex-1 gap-1.5 bg-[#F3F0ED] py-2.5 text-xs font-medium text-[#1D1816]">
+            <Button
+              variant="ghost"
+              className="h-9 flex flex-1 gap-1.5 bg-[#F3F0ED] py-2.5 text-xs font-medium text-[#1D1816]"
+            >
               <MessageSquare className="size-3.5" /> SMS
             </Button>
           </div>
