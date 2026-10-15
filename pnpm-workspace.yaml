@@ -10,6 +10,9 @@ catalog:
   recharts": ^3.10.1
   motion: ^14.1.0
   "@tanstack/react-table": 8.21.3,
+  "@tanstack/react-query": ^5.90.21
+  axios: ^1.13.6
+  zustand: ^5.0.11
 
 allowBuilds:
   sharp: false

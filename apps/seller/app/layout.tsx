@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import { QueryProvider } from "@repo/api/providers";
 import { Toaster } from '@repo/ui/components/ui/sonner'
 import "@repo/ui/globals.css";
 
@@ -29,8 +30,10 @@ export default function RootLayout({
       className={`${inter.variable} ${fraunces.variable}`}
     >
       <body className="font-sans antialiased">
-        {children}
-        <Toaster />
+        <QueryProvider>
+          {children}
+          <Toaster />
+        </QueryProvider>
       </body>
     </html>
   );

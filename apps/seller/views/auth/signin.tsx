@@ -21,6 +21,8 @@ import {
   InputGroupInput,
 } from '@repo/ui/components/ui/input-group';
 import { Marker, MarkerContent } from '@repo/ui/components/ui/marker';
+import { getErrorMessage, useSignIn } from '@repo/api/seller';
+import { toast } from 'sonner';
 
 import { google } from '@/constants/assets.constants';
 
@@ -28,6 +30,7 @@ import { SignInFormSchema, SignInFormInput } from './_schema/signin.schema';
 
 const SignScreen = () => {
   const router = useRouter();
+  const signIn = useSignIn();
 
   const form = useForm<SignInFormInput>({
     resolver: zodResolver(SignInFormSchema),
@@ -38,7 +41,14 @@ const SignScreen = () => {
   });
 
   function onSubmit(data: SignInFormInput) {
-    router.replace("/seller/products")
+    signIn.mutate(data, {
+      onSuccess: () => {
+        router.replace('/seller/analytics');
+      },
+      onError: (error) => {
+        toast.error(getErrorMessage(error));
+      },
+    });
   }
 
   return (
@@ -131,7 +141,14 @@ const SignScreen = () => {
                 )}
               />
 
-              <Button type="submit" form="form-signin" className='mt-2'>Login</Button>
+              <Button
+                type="submit"
+                form="form-signin"
+                className="mt-2"
+                disabled={signIn.isPending}
+              >
+                {signIn.isPending ? 'Logging in...' : 'Login'}
+              </Button>
             </FieldGroup>
           </form>
         </div>

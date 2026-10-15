@@ -1,7 +1,20 @@
-import z from "zod";
+import z from 'zod';
+
+const NAME_PART = /^[\p{L}]+(?:[-'’.][\p{L}]+)*$/u;
 
 export const SignupSchema = z
   .object({
+    fullname: z
+      .string('Full name is required.')
+      .trim()
+      .min(1, 'Full name is required.')
+      .refine((val) => val.split(/\s+/).length >= 2, {
+        message: 'Please enter your first and last name.',
+      })
+      .refine((val) => val.split(/\s+/).every((part) => NAME_PART.test(part)), {
+        message: 'Names can only contain letters, hyphens, and apostrophes.',
+      }),
+
     email: z.email('Please enter a valid email address.'),
     password: z
       .string()
@@ -16,4 +29,4 @@ export const SignupSchema = z
     path: ['confirmPassword'],
   });
 
-  export type SignupFormInput = z.infer<typeof SignupSchema>;
+export type SignupFormInput = z.infer<typeof SignupSchema>;

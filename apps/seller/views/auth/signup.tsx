@@ -1,6 +1,6 @@
 'use client';
 
-import { Lock, Mail, UserPlus } from 'lucide-react';
+import { Lock, Mail, User, UserPlus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -20,6 +20,8 @@ import {
   InputGroupInput,
 } from '@repo/ui/components/ui/input-group';
 import { Marker, MarkerContent } from '@repo/ui/components/ui/marker';
+import { getErrorMessage, useSignUp } from '@repo/api/seller';
+import { toast } from 'sonner';
 
 import { google } from '@/constants/assets.constants';
 
@@ -27,9 +29,11 @@ import { SignupFormInput, SignupSchema } from './_schema/signup.schema';
 
 const SignUp = () => {
   const router = useRouter()
+  const signUp = useSignUp();
   const form = useForm<SignupFormInput>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
+      fullname: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -37,8 +41,19 @@ const SignUp = () => {
   });
 
   function onSubmit(data: SignupFormInput) {
-    console.log(data);
-    router.replace("/signin")
+    const [firstName, ...rest] = data.fullname.split(/\s+/);
+    const lastName = rest.join(' ');
+    signUp.mutate(
+      {firstName, lastName, email: data.email, password: data.password },
+      {
+        onSuccess: () => {
+          router.replace('/verify-email');
+        },
+        onError: (error) => {
+          toast.error(getErrorMessage(error));
+        },
+      },
+    );
   }
 
   return (
@@ -70,6 +85,30 @@ const SignUp = () => {
 
           <form id="form-signup" onSubmit={form.handleSubmit(onSubmit)}>
             <FieldGroup className="w-full">
+            <Controller
+                name="fullname"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field className="w-full" data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="fullname">Full name</FieldLabel>
+                    <InputGroup>
+                      <InputGroupInput
+                        {...field}
+                        id="fullname"
+                        placeholder="e.g john doe"
+                        aria-invalid={fieldState.invalid}
+                        autoComplete="off"
+                      />
+                      <InputGroupAddon align="inline-start">
+                        <User className="text-[#766860]" />
+                      </InputGroupAddon>
+                    </InputGroup>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
               <Controller
                 name="email"
                 control={form.control}
@@ -157,8 +196,12 @@ const SignUp = () => {
                 )}
               />
 
-              <Button type="submit" form="form-signup">
-                Create account
+              <Button
+                type="submit"
+                form="form-signup"
+                disabled={signUp.isPending}
+              >
+                {signUp.isPending ? 'Creating account...' : 'Create account'}
               </Button>
             </FieldGroup>
           </form>

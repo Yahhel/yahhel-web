@@ -28,9 +28,6 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-    "@tanstack/react-query": "^5.90.21",
-    "axios": "^1.13.6",
-    "only-allow": "^1.2.2",
-    "zustand": "^5.0.11"
+    "only-allow": "^1.2.2"
   }
 }

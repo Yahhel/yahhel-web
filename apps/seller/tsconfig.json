@@ -20,7 +20,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@repo/ui/*": ["../../packages/ui/src/*"]
+      "@repo/ui/*": ["../../packages/ui/src/*"],
+      "@repo/api": ["../../packages/api/src/index.ts"],
+      "@repo/api/seller": ["../../packages/api/src/seller/index.ts"],
+      "@repo/api/providers": ["../../packages/api/src/providers/query-provider.tsx"]
     }
   },
   "include": [

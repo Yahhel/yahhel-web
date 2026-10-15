@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
-import { deleteCookie } from 'cookies-next';
+import { useAuthStore } from '@repo/api';
 import {
   Bell,
   BookOpen,
@@ -39,7 +37,6 @@ import { logo } from '@/constants/assets.constants';
 // import CustomModal from "@/components/custom-modal/custom-modal";
 
 export function DashboardSidebar() {
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const router = useRouter();
 
   const studioItems = [
@@ -113,9 +110,10 @@ export function DashboardSidebar() {
     return false;
   };
 
+  const clearSession = useAuthStore((state) => state.clearSession);
+
   const handleLogout = () => {
-    deleteCookie('access_token', { path: '/' });
-    setIsLogoutModalOpen(false);
+    clearSession();
     router.replace('/signin');
   };
 
@@ -262,7 +260,7 @@ export function DashboardSidebar() {
           <Button
             variant="ghost"
             className="text-[#766860] text-xs font-normal px-0"
-            onClick={() => setIsLogoutModalOpen(true)}
+            onClick={handleLogout}
           >
             <LogOut className="w-4! h-4!" /> Sign out
           </Button>
