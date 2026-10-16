@@ -93,8 +93,8 @@ const StoreFrontScreen = () => {
         </div>
       </div>
 
-      <div className="border-t-[0.8px] border-[#E5E0DC99] bg-[#F3F0ED33] px-5 py-8">
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-3">
+      <div className="border-t-[0.8px] border-[#E5E0DC99] bg-[#F3F0ED33] px-8 py-8">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-3">
           {TRUST_ITEMS.map(
             ({ icon: Icon, title, desc, bgColor, iconColor }) => (
               <div key={title} className="flex items-start gap-3">
