@@ -2,37 +2,41 @@
 
 import React from 'react';
 
-import Image from 'next/image';
-import Link from 'next/link';
-
 import { Tabs, TabsList, TabsTrigger } from '@repo/ui/components/ui/tabs';
 
-import { logo } from '@/constants/assets.constants';
+import { useDebouncedValue } from '@/hooks/use-debounced-value';
 import {
   getStorefrontCategories,
   getStorefrontProducts,
+  searchProducts,
 } from '@/lib/storefront';
 import { TRUST_ITEMS } from '@/lib/utils';
 import { StorefrontProductCard } from '@/views/seller/storefront-preview/preview-product-card';
 
-import { StorefrontNavbar } from './storefront-navbar';
+import StoreFrontFooter from '../shared/storefront-footer';
+import { StorefrontNavbar } from '../shared/storefront-navbar';
 
 const StoreFrontScreen = () => {
+  const [search, setSearch] = React.useState('');
+  const debouncedSearch = useDebouncedValue(search, 250);
+
   const storefrontProducts = React.useMemo(() => getStorefrontProducts(), []);
   const categories = React.useMemo(
     () => getStorefrontCategories(storefrontProducts),
     [storefrontProducts],
   );
-
   const [category, setCategory] = React.useState('All');
 
-  const visibleProducts =
-    category === 'All'
-      ? storefrontProducts
-      : storefrontProducts.filter((p) => p.category === category);
+  const visibleProducts = React.useMemo(() => {
+    const byCategory =
+      category === 'All'
+        ? storefrontProducts
+        : storefrontProducts.filter((p) => p.category === category);
+    return searchProducts(byCategory, debouncedSearch);
+  }, [storefrontProducts, category, debouncedSearch]);
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
-      <StorefrontNavbar />
+      <StorefrontNavbar searchValue={search} onSearchChange={setSearch} />
 
       <div className="px-6 py-16 text-center">
         <p className="text-xs uppercase tracking-[0.2em] text-[#766860]">
@@ -64,7 +68,17 @@ const StoreFrontScreen = () => {
 
       <div className="mx-auto max-w-5xl py-10">
         <p className="mb-5 text-xs text-[#766860]">
-          {visibleProducts.length} titles
+          {visibleProducts.length}{' '}
+          {visibleProducts.length === 1 ? 'title' : 'titles'}
+          {debouncedSearch && (
+            <>
+              {' '}
+              for{' '}
+              <span className="font-medium text-[#1D1816]">
+                &ldquo;{debouncedSearch}&rdquo;
+              </span>
+            </>
+          )}
         </p>
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {visibleProducts.map((product) => (
@@ -102,24 +116,7 @@ const StoreFrontScreen = () => {
         </div>
       </div>
 
-      <div className="border-t-[0.8px] border-[#E5E0DC99] bg-[#FAF8F5]">
-        <div className="mx-auto max-w-5xl flex items-center justify-between py-5 text-sm">
-          <div className="flex items-center gap-x-2">
-            <div className="flex items-center justify-center h-7 w-7 rounded-xl bg-[#1D1816] p-1.5">
-              <Image alt="logo" src={logo} />
-            </div>
-            <h2 className="font-serif font-semibold text-sm text-[#1D1816] ">
-              Pager Sell
-            </h2>
-          </div>
-          <div className="flex gap-6 text-[#766860] text-xs">
-            <Link href="#">Creator</Link>
-            <Link href="#">Support</Link>
-            <Link href="#">My Library</Link>
-            <Link href="#">Preview</Link>
-          </div>
-        </div>
-      </div>
+      <StoreFrontFooter />
     </div>
   );
 };

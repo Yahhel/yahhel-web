@@ -2,6 +2,7 @@
 import { useState } from 'react';
 
 import { ArrowRight, Download, ExternalLink, Heart, Lock } from 'lucide-react';
+import Link from 'next/link';
 
 import { Button } from '@repo/ui/components/ui/button';
 import { cn } from '@repo/ui/lib/utils';
@@ -9,37 +10,44 @@ import { cn } from '@repo/ui/lib/utils';
 import type { Product } from '@/lib/dummy';
 
 type StorefrontProductCardProps = {
-  product: Product
-  showLike?: boolean
-  actionLabel?: string
-  actionIcon?: "arrow" | "external"
-  onAction?: () => void
-}
+  product: Product;
+  showLike?: boolean;
+  actionLabel?: string;
+  actionIcon?: 'arrow' | 'external';
+  onAction?: () => void;
+};
 
-export function StorefrontProductCard({ product, actionIcon, actionLabel, onAction, showLike }: StorefrontProductCardProps) {
+export function StorefrontProductCard({
+  product,
+  actionIcon,
+  actionLabel,
+  onAction,
+  showLike,
+}: StorefrontProductCardProps) {
   const [liked, setLiked] = useState(false);
 
   return (
     <div className="flex gap-4">
-      <div
-        className="flex h-60 w-44 shrink-0 flex-col justify-between rounded-lg p-3 text-white shadow-sm"
-        style={{
-          backgroundImage: `linear-gradient(135deg, ${product.coverColors[0]}, ${product.coverColors[1]})`,
-        }}
-      >
-        {product.delivery === 'protected' && (
-          <Lock className="ml-auto size-3.5 text-white/70" />
-        )}
-        <div className="flex flex-col justify-between h-full">
-          <p className="font-serif text-sm font-semibold leading-tight">
-            {product.title}
-          </p>
-          <p className="text-[9px] font-medium uppercase tracking-wider text-white/45">
-            {product.category}
-          </p>
+      <Link key={product.id} href={`/store-front/${product.id}`} className="block">
+        <div
+          className="flex h-60 w-44 shrink-0 flex-col justify-between rounded-lg p-3 text-white shadow-sm"
+          style={{
+            backgroundImage: `linear-gradient(135deg, ${product.coverColors[0]}, ${product.coverColors[1]})`,
+          }}
+        >
+          {product.delivery === 'protected' && (
+            <Lock className="ml-auto size-3.5 text-white/70" />
+          )}
+          <div className="flex flex-col justify-between h-full">
+            <p className="font-serif text-sm font-semibold leading-tight">
+              {product.title}
+            </p>
+            <p className="text-[9px] font-medium uppercase tracking-wider text-white/45">
+              {product.category}
+            </p>
+          </div>
         </div>
-      </div>
-
+      </Link>
       <div className="flex min-w-0 flex-1 flex-col pt-0.5">
         <div className="flex items-start justify-between gap-2">
           <div>
@@ -97,7 +105,7 @@ export function StorefrontProductCard({ product, actionIcon, actionLabel, onActi
           className="mt-1.5 p-0! h-auto w-fit justify-start gap-1 text-xs text-[#766860] hover:text-[#1F1A17]"
         >
           {actionLabel}
-          {actionIcon === "arrow" ? (
+          {actionIcon === 'arrow' ? (
             <ArrowRight className="size-3.5" />
           ) : (
             <ExternalLink className="size-3.5" />

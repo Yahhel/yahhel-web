@@ -1,27 +1,27 @@
 'use client';
 
-import {
-  Bell,
-  BookOpen,
-  LayoutGrid,
-  LifeBuoy,
-  Search,
-  Sparkles,
-} from 'lucide-react';
+import { Bell, BookOpen, LayoutGrid, LifeBuoy, Search } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Input } from '@repo/ui/components/ui/input';
-import Image from 'next/image';
+
 import { logo } from '@/constants/assets.constants';
+
+type StorefrontNavbarProps = {
+  hasUnread?: boolean;
+  searchValue: string;
+  onSearchChange: (value: string) => void;
+};
 
 export function StorefrontNavbar({
   hasUnread = true,
-}: {
-  hasUnread?: boolean;
-}) {
+  searchValue,
+  onSearchChange,
+}: StorefrontNavbarProps) {
   return (
     <header className="flex items-center gap-4 border-b-[0.8px] border-[#E5E0DC99] bg-[#FAF8F5D9] px-6 py-3 lg:px-10">
-      <Link href="/store" className="flex items-center gap-x-2 pl-4">
+      <Link href="/store-front" className="flex items-center gap-x-2 pl-4">
         <div className="flex items-center justify-center h-8 w-8 rounded-xl bg-[#1D1816]">
           <Image alt="logo" src={logo} />
         </div>
@@ -40,6 +40,8 @@ export function StorefrontNavbar({
         <Input
           type="text"
           placeholder="Search titles, topics..."
+          value={searchValue}
+          onChange={(e) => onSearchChange(e.target.value)}
           className="h-10 w-full rounded-lg border-[0.8px] border-[#E5E0DC99] bg-white pl-9 pr-4 text-sm placeholder:text-[] focus-visible:border-[#BD7828] focus-visible:outline-none focus-visible:ring-[1px] focus-visible:ring-[#BD7828]"
         />
       </div>
