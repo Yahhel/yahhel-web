@@ -21,7 +21,6 @@ const MAX_ATTEMPTS = 5;
 const VerifyEmail = () => {
   const router = useRouter();
   const [value, setValue] = useState('');
-  const [error, setError] = useState(false);
   const [attemptsLeft, setAttemptsLeft] = useState(MAX_ATTEMPTS);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

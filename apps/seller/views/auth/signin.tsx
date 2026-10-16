@@ -42,7 +42,7 @@ const SignScreen = () => {
   function onSubmit(data: SignInFormInput) {
     signIn.mutate(data, {
       onSuccess: () => {
-        router.replace('/seller/analytics');
+        router.replace('/store-front');
       },
       onError: (error) => {
         toast.error(getErrorMessage(error));

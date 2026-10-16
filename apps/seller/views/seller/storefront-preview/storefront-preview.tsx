@@ -6,10 +6,7 @@ import {
   ArrowLeft,
   ExternalLink,
   Eye,
-  Lock,
   Monitor,
-  RefreshCw,
-  Shield,
   Smartphone,
   Tablet,
 } from 'lucide-react';
@@ -26,30 +23,7 @@ import {
 } from '@/lib/storefront';
 
 import { StorefrontProductCard } from './preview-product-card';
-
-const TRUST_ITEMS = [
-  {
-    icon: Shield,
-    title: 'Watermarked reader',
-    desc: 'Every page stamped with your email. Share-proof.',
-    iconColor: '#BD7828',
-    bgColor: '#F7F0E9',
-  },
-  {
-    icon: RefreshCw,
-    title: '48-hour refunds',
-    desc: 'Not what you expected? Full refund, no questions.',
-    iconColor: '#29654F',
-    bgColor: '#29654F1A',
-  },
-  {
-    icon: Lock,
-    title: 'Paystack secured',
-    desc: 'Transfer, USSD, card. Flutterwave fallback.',
-    iconColor: '#BD7828',
-    bgColor: '#F7F0E9',
-  },
-];
+import { TRUST_ITEMS } from '@/lib/utils';
 
 export default function StorefrontPreviewScreen() {
   const storefrontProducts = React.useMemo(() => getStorefrontProducts(), []);

@@ -1,4 +1,4 @@
-import { Download, Lock } from 'lucide-react';
+import { Download, Lock, RefreshCw, Shield } from 'lucide-react';
 
 export const formatNaira = (n: number) => `₦${n.toLocaleString('en-NG')}`;
 
@@ -53,3 +53,28 @@ export const DELIVERY_OPTIONS = [
     desc: 'Direct file download',
   },
 ] as const;
+
+
+export const TRUST_ITEMS = [
+  {
+    icon: Shield,
+    title: 'Watermarked reader',
+    desc: 'Every page stamped with your email. Share-proof.',
+    iconColor: '#BD7828',
+    bgColor: '#F7F0E9',
+  },
+  {
+    icon: RefreshCw,
+    title: '48-hour refunds',
+    desc: 'Not what you expected? Full refund, no questions.',
+    iconColor: '#29654F',
+    bgColor: '#29654F1A',
+  },
+  {
+    icon: Lock,
+    title: 'Paystack secured',
+    desc: 'Transfer, USSD, card. Flutterwave fallback.',
+    iconColor: '#BD7828',
+    bgColor: '#F7F0E9',
+  },
+];
