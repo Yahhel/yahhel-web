@@ -31,3 +31,8 @@ export type VerifyEmailPayload = {
   email: string;
   token: string;
 }
+
+export type ChangePayload = {
+  email: string;
+  newPassword: string;
+}

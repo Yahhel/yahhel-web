@@ -5,6 +5,9 @@ export {
   useSignIn,
   useSignOut,
   useSignUp,
+  useSellerForgotPassword,
+  useSellerVerifyEmail,
+  useSellerChangePassword
 } from "./auth/hooks";
 export { sellerAuthKeys } from "./auth/keys";
 export { sellerAuthService } from "./auth/service";

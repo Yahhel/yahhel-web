@@ -48,6 +48,25 @@ export function useSellerVerifyEmail() {
     },
   });
 }
+
+export function useSellerForgotPassword() {
+  return useMutation({
+    mutationFn: sellerAuthService.forgotPassword,
+  });
+}
+
+export function useSellerChangePassword() {
+  const clearSession = useAuthStore((state) => state.clearSession);
+
+  return useMutation({
+    mutationFn: sellerAuthService.changePassword,
+    onSuccess: () => {
+      clearSession();
+    },
+  });
+}
+
+
 export function useSignOut() {
   const queryClient = useQueryClient();
   const clearSession = useAuthStore((state) => state.clearSession);

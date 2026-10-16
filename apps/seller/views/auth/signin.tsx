@@ -1,13 +1,14 @@
 'use client';
 
+import { Lock, LogIn, Mail } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
-import { Lock, LogIn, Mail } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { getErrorMessage, useSignIn } from '@repo/api/seller';
 import { Button } from '@repo/ui/components/ui/button';
 import {
   Field,
@@ -21,12 +22,10 @@ import {
   InputGroupInput,
 } from '@repo/ui/components/ui/input-group';
 import { Marker, MarkerContent } from '@repo/ui/components/ui/marker';
-import { getErrorMessage, useSignIn } from '@repo/api/seller';
-import { toast } from 'sonner';
 
 import { google } from '@/constants/assets.constants';
 
-import { SignInFormSchema, SignInFormInput } from './_schema/signin.schema';
+import { SignInFormInput, SignInFormSchema } from './_schema/signin.schema';
 
 const SignScreen = () => {
   const router = useRouter();
@@ -58,8 +57,8 @@ const SignScreen = () => {
           <LogIn className="text-white" size={24} />
         </div>
         <h1 className="font-serif text-[#1D1816] font-bold  text-3xl mt-4">
-        Welcome back
-      </h1>
+          Welcome back
+        </h1>
 
         <h4 className="text-[#766860] text-base font-normal mt-1.5">
           Log in to your account

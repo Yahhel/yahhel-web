@@ -1,6 +1,7 @@
 import { apiClient } from '../../lib/api-client';
 import type {
   AuthSession,
+  ChangePayload,
   SignInPayload,
   SignUpPayload,
   VerifyEmailPayload,
@@ -39,6 +40,23 @@ export const sellerAuthService = {
 
     return data;
   },
+  forgotPassword: async (payload: Pick<VerifyEmailPayload, 'email'>) => {
+    const { data } = await apiClient.post<AuthSession>(
+      sellerAuthEndpoints.forgotPassword,
+      payload,
+    );
+
+    return data;
+  },
+  changePassword: async (payload: ChangePayload ) => {
+    const { data } = await apiClient.post<AuthSession>(
+      sellerAuthEndpoints.changePassword,
+      payload,
+    );
+
+    return data;
+  },
+
   signOut: async () => {
     await apiClient.post(sellerAuthEndpoints.signOut);
   },
