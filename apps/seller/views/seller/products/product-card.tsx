@@ -26,9 +26,8 @@ import { cn } from '@repo/ui/lib/utils';
 import { conversion, formatDate, formatNaira } from '@/lib/utils';
 
 import ProductStat from './product-stat';
+import type { ProductDelivery, ProductStatus } from '@/lib/dummy';
 
-export type ProductStatus = 'live' | 'retired';
-export type ProductDelivery = 'protected' | 'download';
 
 export interface Product {
   id: string;
