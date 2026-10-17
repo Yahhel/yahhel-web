@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react';
+
 import { StorefrontNavbar } from '../shared/storefront-navbar';
 import { AskAboutBookButton } from './ask-about-book-button';
 import { ProductDetails } from './product-details';
@@ -8,6 +10,7 @@ import { ProductHeader } from './product-header';
 import  type { Product } from '@/lib/dummy';
 import StoreFrontFooter from '../shared/storefront-footer';
 import { TRUST_ITEMS } from '@/lib/utils';
+import { BookBriefingPanel } from './book-briefing-panel';
 
 
 type StoreProductDetailsProps = {
@@ -19,6 +22,8 @@ export default function StoreProductDetails({
   product,
   related,
 }: StoreProductDetailsProps) {
+  const [briefingOpen, setBriefingOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
       <StorefrontNavbar searchValue="" onSearchChange={() => {}} />
@@ -42,8 +47,8 @@ export default function StoreProductDetails({
         </div>
       </div>
 
-      <AskAboutBookButton />
-      
+      <AskAboutBookButton onClick={() => setBriefingOpen(true)} />
+      <BookBriefingPanel product={product} open={briefingOpen} onClose={() => setBriefingOpen(false)} />
       <StoreFrontFooter />
     </div>
     
