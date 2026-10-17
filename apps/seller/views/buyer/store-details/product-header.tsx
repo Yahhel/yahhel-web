@@ -20,8 +20,11 @@ import { cn } from '@repo/ui/lib/utils';
 import type { Product } from '@/lib/dummy';
 import { formatCompactNumber, formatNaira } from '@/lib/utils';
 
+import { CheckoutDialog } from '../checkout/checkout-dialog';
+
 export function ProductHeader({ product }: { product: Product }) {
   const [saved, setSaved] = React.useState(false);
+  const [checkoutOpen, setCheckoutOpen] = React.useState(false);
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-8">
@@ -100,7 +103,11 @@ export function ProductHeader({ product }: { product: Product }) {
             <span className="font-serif text-3xl font-semibold text-[#1D1816]">
               {formatNaira(product.price)}
             </span>
-            <Button size="cta" className="text-white">
+            <Button
+              size="cta"
+              className="text-white"
+              onClick={() => setCheckoutOpen(true)}
+            >
               Buy now <ArrowRight className="size-3.5" />
             </Button>
           </div>
@@ -115,7 +122,12 @@ export function ProductHeader({ product }: { product: Product }) {
                 : 'border-[0.8px] border-[#E5E0DC99] bg-[#F3F0ED80] text-[#1D1816] hover:bg-[#FAF8F5]',
             )}
           >
-            <Heart className={cn('size-4', saved ? 'fill-current' : "text-[#766860]")} />
+            <Heart
+              className={cn(
+                'size-4',
+                saved ? 'fill-current' : 'text-[#766860]',
+              )}
+            />
             {saved ? 'Saved to favorites' : 'Add to favorites'}
           </button>
 
@@ -132,6 +144,13 @@ export function ProductHeader({ product }: { product: Product }) {
           </div>
         </div>
       </div>
+      {checkoutOpen && (
+        <CheckoutDialog
+          product={product}
+          open={checkoutOpen}
+          onOpenChange={setCheckoutOpen}
+        />
+      )}
     </div>
   );
 }
